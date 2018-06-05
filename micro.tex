@@ -1,20 +1,125 @@
-\documentclass[a4paper, 11pt]{report}
-\usepackage{fullpage} % changes the margin
+\documentclass[eng,printmode]{mgr}
+\usepackage{listings}
+\usepackage[english, polish]{babel}
 \usepackage{graphicx}
-\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{tabularx,colortbl} 
+\usepackage{rotating}
+\usepackage{polski}
+\usepackage[utf8]{inputenc} 
+\setlength\parindent{24pt}
+\usepackage[parfill]{parskip}
+\usepackage{listings}
+\usepackage[table,kernelfbox,hyperref]{xcolor}
+\usepackage[xindy]{glossaries}
+\usepackage{fancyhdr}
 \usepackage{amsmath}
 \usepackage{subfig}
 
-\captionsetup{justification=centering}
-\title{Microwave Applications:\\Project Report}
-\author{Jaroslaw M. Szumega, \\ID: 196018 \date{}}
+%\usepackage[colorinlistoftodos]{todonotes}
 
+\hypersetup{colorlinks=true}
+\hypersetup{xurlbordercolor=red!70!black}
+\hypersetup{xlinkbordercolor=blue!70!black}
+\hypersetup{linkcolor=blue!60!black}
+\hypersetup{urlcolor=red!50!black}
+\hypersetup{citecolor=green!30!black}
+\makeglossaries
+\rfoot{Page \thepage}
+\renewcommand\lstlistlistingname{List of Listings}
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+
+\definecolor{listlightgray}{gray}{0.93}
+
+\newcommand{\lstsetmylst} {
+	\lstset{frame = tb,
+		breaklines=true,
+		framerule = 0.25pt,
+		float,
+		fontadjust,
+		backgroundcolor={\color{listlightgray}},
+		basicstyle = {\ttfamily\footnotesize},
+		identifierstyle = {\ttfamily},
+		stringstyle = {\ttfamily},
+		showstringspaces = false,
+		showtabs = false,
+		numbers = left,
+		numbersep = 6pt,
+		tabsize = 4,
+		language=C,
+		floatplacement=!h
+	}
+}
+
+\newcommand{\lstsetatc} {
+	\lstset{frame = tb,
+		breaklines=true,
+		framerule = 0.25pt,
+		float,
+		fontadjust,
+		backgroundcolor={\color{listlightgray}},
+		basicstyle = {\ttfamily\footnotesize},
+		keywordstyle = {\ttfamily\color{listkeyword}\textbf},
+		identifierstyle = {\ttfamily},
+		commentstyle = {\ttfamily\color{listcomment}\textit},
+		stringstyle = {\ttfamily},
+		showstringspaces = false,
+		showtabs = false,
+		numbers = left,
+		numbersep = 6pt,
+		numberstyle={\ttfamily\color{listnumbers}},
+		tabsize = 4,
+		language=C,
+		floatplacement=!h
+	}
+}
+
+\newcommand{\lstsetatbashnum} {
+	\lstset{frame = tb,
+		breaklines=true,
+		framerule = 0.25pt,
+		aboveskip=2ex,
+		float,
+		fontadjust,
+		backgroundcolor={\color{listlightgray}},
+		basicstyle = {\ttfamily\footnotesize},
+		keywordstyle = {\ttfamily\color{listkeyword}\textbf},
+		identifierstyle = {\ttfamily},
+		commentstyle = {\ttfamily\color{listcomment}\textit},
+		stringstyle = {\ttfamily},
+		showstringspaces = false,
+		showtabs = false,
+		numbers = left,
+		numbersep = 6pt,
+		numberstyle={\ttfamily\color{listnumbers}},
+		tabsize = 4,
+		language=bash,
+		floatplacement=!h
+	}
+}
+\author{Jarosław Szumega, B.Sc.}
+\title{Software management system for updating System--On--Chip devices.}
+\engtitle{}
+\supervisor{Paweł Kabacik, D.Sc., \\ Onboard Telecommunication Electronics for Spacecraft and Transportation Means,\\Chair of Acoustics and Multimedia (W4/K-5)}
+\field{Electronics Engineering}
+\specialisation{Advanced Applied Electronics}
+\date{2018}
 \begin{document}
-\maketitle
-\tableofcontents
-\chapter{Microwave Application -- report}
-\section{Introductory tasks}
-\subsubsection{a) One liter of milk deluted in entire Baltic sea -- how many dB does it mean?}
+	\selectlanguage{english}
+	\maketitle
+	\frontmatter
+	\tableofcontents
+	\addcontentsline{toc}{chapter}{Contents}
+	\listoffigures
+	\addcontentsline{toc}{chapter}{List of Figures}
+	\lstsetmylst
+	\mainmatter
+\chapter{Introductory tasks}
+\section{Problem statement}
+The goal of the first task was to perform basic calculations and answer question related to principal knowledge in the area of microwave engineering.\\
+The first task is to calculate the delution level of milk in the Baltic sea in decibels, while the second one is to answer how the complex impedance can be matched in microwave circuits.
+\section{Tasks realization}
+{\large a) One liter of milk deluted in entire Baltic sea -- how many dB does it mean?}
 \begin{align*}
 V_{milk} &= 1\, liter\, = 1\, dm^3 = 10^{-3}\, m^3 \\
 \\
@@ -25,8 +130,8 @@ Ratio_{dB} &= 10\, log_{10}\left(\frac{V_{milk}}{V_{Baltic}}\right) = \\
 		   &= 10\, log_{10}\left(\frac{10^{-3}\, m^3}{2.17\, \cdot 10^{13}\, m^3}\right) = \\
 		   &= -163.22\, [dB]
 \end{align*}
-
-\subsubsection{b) How to match the complex impedance?}
+\newpage
+{\large b) How to match the complex impedance?}
 
 \begin{figure}[h]
 	\centering
@@ -47,14 +152,17 @@ The complex conjugate ($Z^*$) of given complex number $Z$ is defined in the foll
 Z &= x + j\cdot y \\
 Z^* &= x - j\cdot y \\
 \end{align*}
+\section{Conclusions}
+The introductory tasks covered basic, but essential aspects of microwave engineering. Expressing the ratio of powers or intensities in decibels is a common way to present these dependencies and matching impedances in the circuits is a common step in electrical equipment design,
 \newpage
-\section{Basics of Microwave Engineering}
+\chapter{Basics of Microwave Engineering}
+\subsubsection{Problem statement}
 Waveguides and transmission lines are both elements designed to be interconnects between receivers and transmitters of the EM waves (to be more precise -- in range of radio frequencies and microwaves). Despite having similar role, there are essential differences among their properties.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{technology}
-	\caption{From left: waveguide, microstrip and stripline\\ (source: https://www.allaboutcircuits.com)}
+	\caption{From left: waveguide, microstrip and stripline} (source: https://www.allaboutcircuits.com)
 	\label{fig:technology}
 \end{figure}
 
@@ -88,7 +196,8 @@ The striplines (conductor sandwiched between dielectric) are non--dispersive tra
 The microstrips are at the moment very commonly used because of the ease of fabrication and usage. Unfortunately, they do not support TEM modes, often require external shielding and the circuit radiation has to be taken into consideration during the design process.
 
 \newpage
-\section{Microstrip vs stripline -- loss calculation using PCAAD}
+\chapter{Microstrip vs stripline -- loss calculation using PCAAD}
+\subsubsection{Problem statement}
 During the class, there were given sets of parameters such as laminate and paths thickness, frequency, dielectric constant and impedance. The goal of the following task was to calculate total loss given in [dB/cm].\\
 \\
 The results are presented below in the tabular form.
@@ -123,7 +232,8 @@ The highest loses are presented for waveguide WR6, which is around \textbf{7 dB/
 In terms of total losses, the microstrips and striplines cannot compete with the waveguides. 
 \newpage
 
-\section{Impedance transformation}
+\chapter{Impedance transformation}
+\subsubsection{Problem statement}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{impedance}
@@ -175,7 +285,8 @@ To maintain the clean view in the report, the results will be presented as the p
 
 \newpage
 
-\section{HMC778LP6CE -- fractional--n PLL with integrated VCO}
+\chapter{HMC778LP6CE -- fractional--n PLL with integrated VCO}
+\subsubsection{Problem statement}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.3\linewidth]{pll}
@@ -220,7 +331,8 @@ Guidelines to design a PCB board:
 	top and bottom ground planes.
 \end{itemize}
 
-\section{Free--space path losses}
+\chapter{Free--space path losses}
+\subsubsection{Problem statement}
 During the laboratory, we discussed the aspect of free--space losses and started the evaluation according to the distance.\\
 This task was to finish the calculations we started and prepared the comparison in the tabular form.
 
@@ -233,8 +345,8 @@ This task was to finish the calculations we started and prepared the comparison 
 \noindent
 The table observation leads to a clear conclusion -- the free--space losses are increasing with the longer distance and when using high frequencies.
 \newpage
-\section{Microwave low--noise amplifier operating at C--band}
-
+\chapter{Microwave low--noise amplifier operating at C--band}
+\subsubsection{Problem statement}
 The C--band is a portion of the electromagnetic spectrum in the microwave range of frequencies ranging from 4.0 to 8.0 GHz (according to IEEE designation).\\
 To fulfill the given assignment, the packed low noise amplifier manufactured by Qorvo was chosen. It is \textbf{TGA2611-SM} model, operating at frequency range 2.0 - 6.0 GHz, so its range of operation covers C--band.
 \\
