@@ -233,7 +233,7 @@ Non-Standard LaTeX document class]
 \newcommand{\@napisProwadzacy}{Prowadz\k{a}cy prac\k{e}:}
 \newcommand{\@napisOcena}{Ocena pracy:}
 \if@eng
-\renewcommand{\@naglowek}{MASTER THESIS}
+\renewcommand{\@naglowek}{Microwave Application:\\ Project Report}
 \renewcommand{\@napisProwadzacy}{Course Supervisor:}
 \renewcommand{\@napisOcena}{Grade:}
 \fi
