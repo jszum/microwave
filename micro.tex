@@ -122,7 +122,7 @@
 The goal of the first task was to perform basic calculations and answer question related to principal knowledge in the area of microwave engineering.\\
 The first task is to calculate the delution level of milk in the Baltic sea in decibels, while the second one is to answer how the complex impedance can be matched in microwave circuits.
 \section{Tasks realization}
-{\large a) One liter of milk deluted in entire Baltic sea -- how many dB does it mean?}
+{\normalsize a1) One liter of milk diluted in the Baltic sea -- how many dB does it mean?}
 \begin{align*}
 V_{milk} &= 1\, liter\, = 1\, dm^3 = 10^{-3}\, m^3 \\
 \\
@@ -131,10 +131,18 @@ V_{Baltic} &= 21\, 700\, km^3 = 21\, 700 \cdot 10^9\, m^3 =\\
 		   \\
 Ratio_{dB} &= 10\, log_{10}\left(\frac{V_{milk}}{V_{Baltic}}\right) = \\
 		   &= 10\, log_{10}\left(\frac{10^{-3}\, m^3}{2.17\, \cdot 10^{13}\, m^3}\right) = \\
-		   &= -163.22\, [dB]
+		   &= -163.22\, dB
+\end{align*}
+{\normalsize a2) One liter of milk diluted in the Atlantic ocean -- how many dB does it mean?}
+\begin{align*}
+Ratio_{dB} &= 10\, log_{10}\left(\frac{V_{milk}}{V_{Atlantic}}\right) = 10\, log_{10}\left(\frac{10^{-3}\, m^3}{3.10\, \cdot 10^{17}\, m^3}\right)) =-204,91\, dB
+\end{align*}
+{\normalsize a3) Calculate volume of milk diluted in Atlantic ocean that is expressed as -225 dB.}
+\begin{align*}
+V_{milk} &= 10^{(\frac{db_value}{10})}\cdot V_{Atlantic} = 10^{(\frac{-225}{10})} \cdot 3.1 \cdot 10^{17}  = 9.8 \cdot 10^{-6}m^{3}= 9.8 * 10^{-3} litres
 \end{align*}
 \newpage
-{\large b) How to match the complex impedance?}
+{\normalsize b) How to match the complex impedance?}
 
 \begin{figure}[h]
 	\centering
@@ -459,49 +467,86 @@ It delivers exactly the same information, however the conclusions can be seen in
 The table observation leads to a clear ans simple conclusion -- the free--space losses are increasing when using higher frequencies. They also increase with the distance, what is a common behavior due to energy dispersion along the distance.
 \newpage
 \chapter{Microwave low--noise amplifier operating at C--band}
-\subsubsection{Problem statement}
+\section{Problem statement}
+The goal of the following assignment is to choose a low--noise amplifier that is operating at C--band (it was recommended to amplifiers from Qorvo company). The investigation over the amplifier's technical specification should be done as well as  simulation prepared e.g. in Ansoft Designer software (based on scattering matrix data).
+\section{Task realization}
+\subsubsection{Choosing the amplifier}
 The C--band is a portion of the electromagnetic spectrum in the microwave range of frequencies ranging from 4.0 to 8.0 GHz (according to IEEE designation).\\
-To fulfill the given assignment, the packed low noise amplifier manufactured by Qorvo was chosen. It is \textbf{TGA2611-SM} model, operating at frequency range 2.0 - 6.0 GHz, so its range of operation covers C--band.
+To fulfill the given assignment, the packed low noise amplifier manufactured by Qorvo was chosen. It is \textbf{TGA2611--SM} model, operating at frequency range 2.0 - 6.0 GHz, so its range of operation covers C--band.
 \\
 It is said, that the product is designed to commercial and military radars or communication.\\
 Its noise figure is estimated to be 1.0 dB.
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.3\linewidth]{chip}
-	\caption{Basic features of selected amplifier.}
+	\includegraphics[width=0.5\linewidth]{chip}
+	\caption{Basic features of selected amplifier TGA2611--SM.}
+	(source: TGA2611-SM 2 - 6 GHz GaN Low Noise Amplifier Datasheet, Qorvo)
 	\label{fig:chip}
 \end{figure}
-
-\noindent
-The *.s2p file describing the scattering matrix of the plot was obtained from the Qorvo site. In the Ansoft Designer there was prepared a report:
-\begin{figure}[h]
+%The *.s2p file describing the scattering matrix of the plot was obtained from the Qorvo site. In the Ansoft Designer there was prepared a report:
+\subsubsection{Scattering matrix analysis}
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{chip-plot}
-	\caption{Plot of the scattering matrix.}
+	
+	(Scattering matrix plots generated in Ansoft Designer)
+	
+	\includegraphics[width=0.7\linewidth]{amplifier}
+	
+	(source: TGA2611-SM 2 - 6 GHz GaN Low Noise Amplifier Datasheet, Qorvo)
+
+	\caption{Plot of the scattering matrix prepared in Ansoft Designer, based on *.s2p file. The four plots are taken from the datasheet for comparison. By observing the plots it can be noticed, that the scattering matrix parameters values are very similar to each other in both cases. The documentation of course includes also the plots at different temperatures, but the ranges of values seems to be correct.}
 	\label{fig:chip-plot}
 \end{figure}
-
 The Scattering matrix describes the following aspects of the N--port element:
-\begin{itemize}
+\begin{itemize}\setlength\itemsep{1pt}
 \item S11 input return loss  (blue plot)
 \item S12 reverse gain       (red plot)
 \item S21 small signal gain  (green plot)
 \item S22 output return loss (pink plot)
 \end{itemize}
+\newpage
+\subsubsection{Application Circuit}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{amplifier1}
+	\includegraphics[width=0.7\linewidth]{amplifier2}
+	\caption{Application circuit example delivered by Qorvo. The circuit requires additional electrical elements at $V_d$ and $V_g$.\\
+	As the element in Ansoft Designer was declared as N--port element defined by *.s2p file (so it was two--port), there was no possibility to simulate the application circuit.}\vspace{20pt}	(image source: TGA2611-SM 2 - 6 GHz GaN Low Noise Amplifier Datasheet, Qorvo)
+	\label{fig:amplifier1}
+\end{figure}
 
-\subsection*{Noise Figure}
+The Qorvo company delivered also some information and guidelines for designing application circuit:
+\begin{itemize}
+\item The microstrip line at the connector interface is optimized for the Southwest Microwave end launch connector 1092-01A-5.
+\item The pad pattern shown has been developed and tested for optimized assembly at Qorvo. 
+\item The PCB land pattern has been
+developed to accommodate lead tolerances. Since processes vary from company to company, careful process development
+is recommended.
+\item Multiple vias should be employed under the package center paddle to minimize inductance resistance.
+\end{itemize}
+
+
+\subsubsection{Noise Figure}
 The plot below presents the noise figure of the selected amplifier.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{noise}
 	\caption{Noise figure vs frequency (at different temperatures).}
+	(source: TGA2611-SM 2 - 6 GHz GaN Low Noise Amplifier Datasheet, Qorvo)
 	\label{fig:noise}
 \end{figure}
 
-\subsection*{}
 Despite advertised 1dB noise figure in the operating range (reminder: 2 -- 6 GHz), when approaching the upper limit of 6 GHz the NF increases. However, the change is very insignificant (more or less it is 1.25 dB).\\
 Of course also the temperature is important, but also at 85 $^\circ$C
 the NF in operating range is around 1.75 dB.
+
+\section{Summary}
+The microwave equipement needs to be carefully chosen and the final solution (PCB board) designed according to microwave engineering rules. When operating at high frequency, even the smallest differences in fabrication can have significant impact on the performance. The producer also proposes some guidelines in PCB fabrication with notice that careful developement process is recommended.\\
+It is very important to read the technical documentation and investigate all data that is delivered by producer. The tables with parameters on the websites are purely for marketing business and often the best parameters are listed. The technical documentation delivers much more detailed specification.\\
+\\
+The choice of professional tools is significant aspect of designing microwave engineering solution. \textbf{Ansoft Designer} is one of many available tools, but in comparison to \textbf{CST MICROWAVE STUDIO 3D EM Simulation Software} (it was presented during the tour in the Antenna Laboratory at Wroclaw Unicersity of Science and Technology) has very limited options of usage.
 \begin{thebibliography}{9}
 \bibitem{microwave} Online Microwave Encyclopedia, http://microwave101.com,  (27.02.2018)
 \end{thebibliography}
