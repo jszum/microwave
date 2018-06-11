@@ -106,6 +106,8 @@
 \specialisation{Advanced Applied Electronics}
 \date{2018}
 \begin{document}
+	%\pagestyle{fancy}
+
 	\selectlanguage{english}
 	\maketitle
 	\frontmatter
@@ -167,7 +169,7 @@ Waveguides and transmission lines are both elements designed to be interconnects
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{technology}
-	\caption{From left: waveguide, microstrip and stripline} (source: https://www.allaboutcircuits.com)
+	\caption{From left: waveguide, microstrip and stripline} (image source: https://www.allaboutcircuits.com)
 	\label{fig:technology}
 \end{figure}
 
@@ -217,12 +219,12 @@ To perform the calculation, the PCAAD software version 7.0 was used ( PCAAD -- P
 \end{figure}
 
 \newpage
-\begin{figure}[h]
+\begin{table}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{table1a}
 	\label{fig:microm1}
-	\caption{First part of the calculations made for listed parameters and $\epsilon$ = 2.2. Most of the results are calculated correctly, however there can be observed two examples where PCAAD software failed to give a results. They are marked with gray color.}
-\end{figure}
+	\caption{The calculations made for listed parameters, $\epsilon$ = 2.2 and conductor thickness = 0.080mm (80 $\mu$m). Most of the results are calculated correctly, however there are examples where PCAAD software failed to give a results. They are marked with gray color.}
+\end{table}
 
 \begin{figure}[H]
 \noindent
@@ -237,53 +239,68 @@ At the very beginning it was considered a mistake, but after retrying, the resul
 \end{figure}
 
 
-\begin{figure}[h]
+\begin{table}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{table2a}
 	\label{fig:microm2}
-	\caption{}
-\end{figure}
+	\caption{The calculations made for $\epsilon$ = 9.8 and conductor thickness = 0.080mm (80 $\mu$m). It can be observed, that change of the epsilon from 2.2 to 9.8 causes significant increasing of the total losses. There is also more cases, where the width couldn't be calculated.}
+\end{table}
 
 Some calculations (cells marked with gray color) were plain wrong either due to obtaining negative values of width or recevining \textbf{Nan} result (NaN means "Not a Number" in floating point representation).\\
-\\
-Professor's piece of advice during the lab was to compare quasi--static analysis with full--wave. In some cases the results improved, however still there remain few unresolved.\\
-\\
-That lead to a very important conclusion -- the software for simulation has its limitations and it's much appreciated to use different tools (PCAAD, MicrowaveStudio, $\mu$Wave Wizard etc.).\\
-\\
-\newpage
-The assignment's second part was to compare the obtained results to the losses of waveguides:
+Professor's piece of advice during the lab was to compare quasi--static analysis with full--wave. Also in case if this approach fails, it was recommended to try a different tool for calculations:
+\begin{itemize}
+	\item the PCAAD v7.0 full--wave calculations fails, because the path width is a part of input data, so it cannot be calculated.
+	\item website \textbf{Microwave101} also failed to calculate the missing values. The example will be presented below.
+	\item open--source tools found on different websites failed mostly due the fact, that they allow to calculate the input impedance, not the total losses.
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{microwave-fail}
+	\caption{PCAAD v7.0 full-wave analysis (left image) and Microwave101 calculator (right) failed to improve missing. PCAAD's full--wave is not capable of width calculation as it is input data. Microwave101 also responds with "Not a Number" result.}
+	\label{fig:microwave-fail}
+\end{figure}
+The assignment's second part was to compare the calculated results to the losses of waveguides. The plot presented below shows the attenuation in dB/m of different types of waveguides.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{waveguides}
 	\label{fig:waveguides}
+	\caption{Waveguides offer much lower losses (and the Y--axis scale is in dB per METER).
+	The highest loses are for waveguide WR6, which is around \textbf{7 dB/m = 0.07 dB/cm}.
+	In terms of total losses, the microstrips and striplines cannot compete with the waveguides.}
+	(image source: https://sagemillimeter.com)
 \end{figure}
 
-\noindent
-As it can be read from the plot -- waveguides offer much lower losses (and the Y--axis scale is in dB per METER).\\
-The highest loses are presented for waveguide WR6, which is around \textbf{7 dB/m = 0.07 dB/cm}.
-In terms of total losses, the microstrips and striplines cannot compete with the waveguides. 
-\newpage
+\section{Summary}
+That lead to a very important conclusion -- the software for simulation has its limitations and it's much appreciated to use different tools (PCAAD, MicrowaveStudio, $\mu$Wave Wizard etc.).\\
+Additionally, as it was told in the classes during the tour in the Microwave Laboratory, the professional tools are very expensive, but they also deliver the quality tools that cannot be compared to the ones available in the internet. 
+\\
+\\
+In terms of total losses in the different medium, the waveguides are incomparable in terms of their quality. Unfortunately, they are much bigger in terms of their physical dimensions and much more expensive in comparison to the microstrip/striplines.\\
+Also their operating frequencies are much higher than microstrip/stripline can deal with -- at it was observed in the results from the table, the losses at 1GHz are significant, not to mention the calculation result in case of 20GHz. But the waveguids can deal with these frequencies very effectively.
 
 \chapter{Impedance transformation}
-\subsubsection{Problem statement}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{impedance}
-	\label{fig:impedance}
-\end{figure}
-\noindent
-The presented above model was given to calculate the impedance transformation.
-The data was defined in the following way:\\
+\section{Problem statement}
+Taking the presented below model, the input impedance should be calculated according to correct formulas.\\
+The presented list of values should be use in these calculations as follows:
 R1 [0, 50, 70] $\Omega$,\\
 R2 [0, 25, 50, 70]$\Omega$,\\
 L0 $<$5, 200$>$mm with 25mm step,\\
 L1 [13, 42, 72]mm\\
 L2 [25, 42, 93]mm\\
-\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\linewidth]{impedance}
+	\label{fig:impedance}
+	\caption{The model of junction to be used in input impedance calculation.}
+\end{figure}
+
+If any other parameter will be necessary, there should be assumed that they are constant as follows:\\
 $f_0$ = 5 GHz\\
-$\epsilon _r$ = 2.3,  tan$\delta$ = 0.001, laminate\_thickness = 0.508mm, copper = 18$\mu$
+$\epsilon _r$ = 2.3,\\  tan$\delta$ = 0.001, \\laminate\_thickness = 0.508mm, \\copper\_thickness = 18$\mu$m
 \\
 \\
+\section{Task realization}
 By utilizing the presented during classes equations, the impedance was calculated.\\
 \begin{align*}
 Z' &= \frac{Z_1 ' Z_2 '}{Z_1 ' + Z_2 '}\\
@@ -294,66 +311,102 @@ Z_{in} &= Z_0 \frac{Z_L + jZ_0tan(\beta L)}{Z_0 + jZ_Ltan(\beta L)}
 \noindent
 With the given data almost 1000 results were obtained (there was dedicated software script prepared in the Python language to calculate the impedance and automatically save the results as Excel file).
 \\
-\\
-To maintain the clean view in the report, the results will be presented as the plots.
-\begin{figure}[!h]
-	\centering
-	\subfloat[L1 == 13mm, L2 == 25mm, R1 == 0 Ohm]{{\includegraphics[width=0.5\linewidth]{Figure_4} }}%
-	\subfloat[L2 == 13mm, L1 == 25mm, R2 == 0 Ohm]{{\includegraphics[width=0.5\linewidth]{Figure_5} }}%	
-	\caption{Relation between L0 and magnitude of impedance Zin}
-	\label{fig:figure1}
-	\centering
-	\vspace{30pt}
-	\subfloat[L0 == 30mm, L1 == 13mm, L2 == 25mm, Ohm]{{\includegraphics[width=0.7\linewidth]{Figure_1} }}%
-	\caption{Relation between R2 (x-axis), R1 (curves family) and magnitude of impedance Zin}
-		\vspace{30pt}
-	\centering
-	\subfloat[L0 == 30mm, L2 == 25mm]{{\includegraphics[width=0.5\linewidth]{Figure_2} }}%
-	\subfloat[L0 = 30mm, L1 == 13mm]{{\includegraphics[width=0.5\linewidth]{Figure_3} }}%
-	\caption{Relation between lengths L1, L2 and magnitude of impedance Zin}
-	\label{fig:figure1}
-\end{figure}
-\\
+To maintain the clean view in the report, only the part of the results will be presented in tabular form (as the examples). The most meaningful will be the prepared plots.
 
+\begin{table}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{microwave-fail1}
+	\caption{The input impedance (Zin) calculated based on the presented model and given formulas. Although the realation between parameters cannot be establish based only on numerical results, some observations can be made. It can be observed, that in cases when the R1 and R2 resistances are equal to zero, the input impedance consist only the imaginary part of complex number and the real part is equal to zero.}
+	\label{fig:microwave-fail1}
+\end{table}
 \newpage
-
-\chapter{HMC778LP6CE -- fractional--n PLL with integrated VCO}
-\subsubsection{Problem statement}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.3\linewidth]{pll}
+	\includegraphics[width=1\linewidth]{Figure_4}
+	L1 == 13mm, L2 == 25mm, R2 == 0 Ohm
+	\includegraphics[width=1\linewidth]{Figure_5}
+	L2 == 13mm, L1 == 25mm, R1 == 0 Ohm
+	\caption{The impedance magnitude versus length L0. The family of curves is related to different values of R1 and R2.\\
+	The relation between length and impedance can be observed -- it seems that there is periodical plot with some minimum and maximum value at certain lengths. The bigger the resistances R1 and R2, the smaller the deviation of the input impedance. It reaches the maximum for the case where R1/R2 are equal to zero (the circuit load is 0 at one or second end).
+	}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\linewidth]{Figure_3}
+	L0 = 30mm, L1 == 13mm, R1 = 0 Ohm
+	\caption{The picture presents the magnitude of impedance in relation to length L2. With changing length the impedance seems to change alternately between maximum and minimum value. However, there is a line for R2 = 50 Ohm, which is completely flat. At this point it seems, that for some value of load, the length of path simply does not take an effect.}
+		\includegraphics[width=1\linewidth]{Figure_1}
+	L0 == 30mm, L1 == 13mm, L2 == 25mm,
+	\caption{Relation between R2 (x-axis), R1 (curves family) and magnitude of impedance Zin. For lengths taken as constant, we can observe that in selected ranges, the increasing values of R2 resulted in greater magnitude of impedance. Also the curves family of R1 changes its angle of elevation to X--axis, that results in much steep plot.}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\linewidth]{Figure_2}
+	L0 == 30mm, L2 == 25mm
+	\caption{As there are only three selected values of L1, this plot may not be very informative in particular. However, the relation between Zin and L1 (also with related curves family of R1), can inform us that the influence of L1 (no matter the load at its end) is not very significant.}
+\end{figure}
+
+\section{Summary}
+In this assignment the numerous cases within given ranges of values were calculated. The task was to calculate it and try to find the relation between data and input impedance.\\
+The two formulas are not very complicated, but the analysis of results requires more than just table with numerical results. That was the case for preparing the plots.\\
+\\
+Based on presented plots, some relationships between data were established. There were periodical dependencies (seems that it was related to the phase in different lengths), some parameters that had very small influence, but also clear conclusions (just like in the last presented picture).
+Nevertheless, it is much clearer to discuss results having the plots that can be referred to. It is more informative way to discuss observed aspects of physical phenomena.
+
+\chapter{Fractional--n PLL with VCO}
+\section{Problem statement}
+The given assignment purpose was to read the HMC778 documentation guide and prepare in short the understanding of fractional--N PLL circuit.\\
+By documentation sheet further investigation, the design of the PCB should be described in order to achieve the best possible performance.
+\section{Task Realization}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{pll}
 	\label{fig:pll}
+	\caption{Functional diagram of the selected PLL circuit chip.}
+	(source: "PLLs with integrated VCO - Microwave Applications
+	product \& operating guide", Analog Devices)
 \end{figure}
 \noindent
 \subsubsection{Circuit information}
 The HMC778LP6CE is a fully functioned Fractional-N Phase-Locked-Loop (PLL) Frequency Synthesizer with an
 integrated Voltage Controlled Oscillator (VCO). \\
-The official datasheet is describing the input reference frequency range to be DC to 350 MHz. The manufacturer claims that it provide very good phase noise performance over temperature,\\
-shock and process. The HMC778LP6CE offers frequency sweep and modulation features, external
-triggering, double-buffering, exact frequency control, phase modulation.\\ \\ The HMC778LP6CE is packaged
+The official datasheet is describing the input reference frequency range to be DC to 350 MHz. The manufacturer claims that it provide very good phase noise performance over temperature,
+shock and process. The HMC778LP6CE offers frequency sweep and modulation features, external triggering, double-buffering, exact frequency control, phase modulation.\\ \\ The HMC778LP6CE is packaged
 in a leadless QFN 6 x 6 mm surface mount package.
 
 \subsubsection{PLL operation}
 The assignment was to prepare a short summary of principles of PLLs operation of the HMC778 circuit and to describe the difference in operation between integer and fractional PLLs.
 \\
-The basic application of PLL integrated circuit such as HMC778 is to form a control loop to multiply low frequency source to a higher frequency.\\
-The phase detector and charge--pump drive the tuning signal of VCO (voltage controlled oscillator) to bring the phases (phases of both reference signal and tuning signal) at the detector input into alignment.\\
-\\If the loop succeeds, then the phase detector inputs (reference and DIV at the diagram) are at the same frequency. 
-As the frequency of DIV = $f_{VCO} / N$, then its equality means that control loop forced the frequency of VCO to be N $\cdot f_{PD}$.
+The basic application of PLL integrated circuit such as HMC778 is to form a control loop to multiply low frequency source to a higher frequency.
+
 \begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{pll3}
-	\label{fig:pll3}
+{	\centering 	\includegraphics[width=1\linewidth]{pll3}}
+\caption{The phase detector and charge--pump drive the tuning signal of VCO (voltage controlled oscillator) to bring the phases (phases of both reference signal and tuning signal) at the detector input into alignment.\\
+If the loop succeeds, then the phase detector inputs (reference and DIV at the diagram) are at the same frequency. 
+As the frequency of DIV = $f_{VCO} / N$, then its equality means that control loop forced the frequency of VCO to be N $\cdot f_{PD}$.}
+\hspace{20pt}
+
+(image source: "PLLs with integrated VCO - Microwave Applications
+product \& operating guide", Analog Devices)
+\label{fig:pll3}
 \end{figure}
+\vspace{20pt}
 The difference between integer and fractional PLL is that the fractional can bring N value at fractional level (1.6, 2.4, 3.7) while the integer can do it only with discrete value of N (2, 4, 10, 13 etc.).
+
 \newpage
 \subsubsection{Designing PCB for HMC778}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.3\linewidth]{pll2}
+	\includegraphics[width=0.5\linewidth]{pll2}
 	\label{fig:pll2}
+	\caption{}
+	(image source: "PLLs with integrated VCO - Microwave Applications
+	product \& operating guide", Analog Devices)
 \end{figure}
-Guidelines to design a PCB board:
+Guidelines to design a PCB board to be utilized in the future:
 \begin{itemize}
 	\item The circuit board used in the application should use RF circuit design techniques. 
 	\item Signal lines should have
@@ -362,6 +415,12 @@ Guidelines to design a PCB board:
 	\item A sufficient number of via holes should be used to connect the
 	top and bottom ground planes.
 \end{itemize}
+\section{Summary}
+The HMC778 chip is a fractional-N pll (Phased--Lock--Loop) -- the applications of this type of chips is to build a control loop to multiply low frequency source to a higher frequencies.\\
+The difference between integer and fractional PLL is that the fractional can bring N value at fractional level, while the integer can do it only with discrete value of N (2, 4, 10, 13).\\
+\\
+\\
+Beside of having the selected chip, it should also be assembled into the PCB board. It is a very sensitive element, therefore it requires proper design of the circuit board.\\ The chip's official documentation contain relevant examples and informations.
 
 \chapter{Free--space path losses}
 \subsubsection{Problem statement}
@@ -424,7 +483,4 @@ the NF in operating range is around 1.75 dB.
 \begin{thebibliography}{9}
 \bibitem{microwave} Online Microwave Encyclopedia, http://microwave101.com,  (27.02.2018)
 \end{thebibliography}
-	\begin{thebibliography}{9}
-		\bibitem{microwave} Online Microwave Encyclopedia, http://microwave101.com,  (27.02.2018)
-	\end{thebibliography}
 \end{document}
