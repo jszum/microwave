@@ -101,7 +101,7 @@
 \author{Jarosław Szumega, B.Sc.}
 \title{}
 \engtitle{}
-\supervisor{Paweł Kabacik, D.Sc., \\ Onboard Telecommunication Electronics for Spacecraft and Transportation Means,\\Chair of Acoustics and Multimedia (W4/K-5)}
+\supervisor{Paweł Kabacik, D.Sc., \\ Onboard Telecommunication Electronics for Spacecraft and Transportation Means,\\Chair of Acoustics and Multimedia (W4/K-5),\\Wroclaw University of Science and Technology}
 \field{Electronics Engineering}
 \specialisation{Advanced Applied Electronics}
 \date{2018}
@@ -113,7 +113,7 @@
 	\frontmatter
 	\tableofcontents
 	\addcontentsline{toc}{chapter}{Contents}
-	\listoffigures
+	%\listoffigures
 	\addcontentsline{toc}{chapter}{List of Figures}
 	\lstsetmylst
 	\mainmatter
@@ -158,7 +158,7 @@ Z^* &= x - j\cdot y \\
 \section{Summary}
 The introductory tasks covered basic, but essential aspects of microwave engineering. Expressing the ratio of powers or intensities in decibels is a common way to present these dependencies and matching impedances in the circuits is a common step in electrical equipment design.\\
 As of the essential conclusions -- the second task was to find the relation between impedances in terms on matching them. As it was presented, to match two impedances, one should be a complex conjugate of the another.
-\newpage
+
 \chapter{Basics of Microwave Engineering}
 \section{Problem statement}
 The assignment is to collect and present the information about microstrip, stripline and waveguides usage in the microwave engineering.\\
@@ -366,6 +366,7 @@ By documentation sheet further investigation, the design of the PCB should be de
 	\includegraphics[width=0.5\linewidth]{pll}
 	\label{fig:pll}
 	\caption{Functional diagram of the selected PLL circuit chip.}
+	
 	(source: "PLLs with integrated VCO - Microwave Applications
 	product \& operating guide", Analog Devices)
 \end{figure}
@@ -383,14 +384,16 @@ The assignment was to prepare a short summary of principles of PLLs operation of
 The basic application of PLL integrated circuit such as HMC778 is to form a control loop to multiply low frequency source to a higher frequency.
 
 \begin{figure}[!h]
-{	\centering 	\includegraphics[width=1\linewidth]{pll3}}
-\caption{The phase detector and charge--pump drive the tuning signal of VCO (voltage controlled oscillator) to bring the phases (phases of both reference signal and tuning signal) at the detector input into alignment.\\
-If the loop succeeds, then the phase detector inputs (reference and DIV at the diagram) are at the same frequency. 
-As the frequency of DIV = $f_{VCO} / N$, then its equality means that control loop forced the frequency of VCO to be N $\cdot f_{PD}$.}
-\hspace{20pt}
+{	
+	\centering 	
+	\includegraphics[width=1\linewidth]{pll3}}
+	\caption{The phase detector and charge--pump drive the tuning signal of VCO (voltage controlled oscillator) to bring the phases (phases of both reference signal and tuning signal) at the detector input into alignment.\\
+	If the loop succeeds, then the phase detector inputs (reference and DIV at the diagram) are at the same frequency. 
+	As the frequency of DIV = $f_{VCO} / N$, then its equality means that control loop forced the frequency of VCO to be N $\cdot f_{PD}$.}
+	\hspace{20pt}
 
-(image source: "PLLs with integrated VCO - Microwave Applications
-product \& operating guide", Analog Devices)
+	(image source: "PLLs with integrated VCO - Microwave Applications
+	product \& operating guide", Analog Devices)
 \label{fig:pll3}
 \end{figure}
 \vspace{20pt}
@@ -402,7 +405,8 @@ The difference between integer and fractional PLL is that the fractional can bri
 	\centering
 	\includegraphics[width=0.5\linewidth]{pll2}
 	\label{fig:pll2}
-	\caption{}
+	\caption{Example usage of HMC778 chip -- an evaluation board that follows the guidelines in the PCB design.}
+	\hspace{20pt}
 	(image source: "PLLs with integrated VCO - Microwave Applications
 	product \& operating guide", Analog Devices)
 \end{figure}
@@ -420,21 +424,39 @@ The HMC778 chip is a fractional-N pll (Phased--Lock--Loop) -- the applications o
 The difference between integer and fractional PLL is that the fractional can bring N value at fractional level, while the integer can do it only with discrete value of N (2, 4, 10, 13).\\
 \\
 \\
-Beside of having the selected chip, it should also be assembled into the PCB board. It is a very sensitive element, therefore it requires proper design of the circuit board.\\ The chip's official documentation contain relevant examples and informations.
+Beside of having the selected chip, it should also be assembled into the PCB board. It is a very sensitive element, therefore it requires proper design of the circuit board.\\ The chip's official documentation contains relevant examples and informations that should be followed when designing either prototype or final product.
 
 \chapter{Free--space path losses}
-\subsubsection{Problem statement}
-During the laboratory, we discussed the aspect of free--space losses and started the evaluation according to the distance.\\
-This task was to finish the calculations we started and prepared the comparison in the tabular form.
+\section{Problem statement}
+During the laboratory, the aspect of free--space losses and started the evaluation according to the distance was discussed. This task was to finish the calculations that started during the classes and prepared the comparison in the tabular form.
+
+\section{Task realization}
+The losses were calculated with "Free--Space Path Loss Calculator" from \textbf{Pasternack website}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{pasternack}
+	\caption{Free--space loss calculator by https://www.pasternack.com/}
+\end{figure}
 
 \begin{table}[h]
 	\centering
-	\caption{The comparison of free--space losses in relation to used frequency and distance between transmitter and receiver}
 	\includegraphics[width=0.9\linewidth]{freespace}
+	\caption{The comparison of free--space losses in relation to used frequency and distance between transmitter and receiver. It is clear that losses increase when the higher frequencies are used or the distance is larger.}
 	\label{fig:freespace}
 \end{table}
+
+To deliver also the visual representation of the obtained results, the plot (with family of curves for distances) was prepared.\\
+It delivers exactly the same information, however the conclusions can be seen instantly.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{freespaceloss}
+\caption{Calculated free--space losses presented as a plot. The data is exactly the same as used in the tabular form.}
+\label{fig:freespaceloss}
+\end{figure}
+
 \noindent
-The table observation leads to a clear conclusion -- the free--space losses are increasing with the longer distance and when using high frequencies.
+\section{Summary}
+The table observation leads to a clear ans simple conclusion -- the free--space losses are increasing when using higher frequencies. They also increase with the distance, what is a common behavior due to energy dispersion along the distance.
 \newpage
 \chapter{Microwave low--noise amplifier operating at C--band}
 \subsubsection{Problem statement}
